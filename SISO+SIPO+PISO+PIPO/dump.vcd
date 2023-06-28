@@ -1,0 +1,135 @@
+$date
+	Wed Jun 28 07:03:46 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testbench $end
+$scope module siso_inst $end
+$var wire 1 ! clk $end
+$var wire 1 " reset $end
+$var wire 1 # si $end
+$var wire 1 $ so $end
+$var reg 4 % int_reg [3:0] $end
+$upscope $end
+$upscope $end
+$scope module testbench $end
+$scope module sipo_inst $end
+$var wire 1 ! clk $end
+$var wire 1 " reset $end
+$var wire 1 # si $end
+$var reg 4 & int_reg [3:0] $end
+$var reg 4 ' po [3:0] $end
+$upscope $end
+$upscope $end
+$scope module testbench $end
+$scope module piso_inst $end
+$var wire 1 ! clk $end
+$var wire 1 ( mode $end
+$var wire 1 ) pi $end
+$var wire 1 " reset $end
+$var reg 4 * int_reg [3:0] $end
+$var reg 1 + so $end
+$upscope $end
+$upscope $end
+$scope module testbench $end
+$scope module pipo_inst $end
+$var wire 1 ! clk $end
+$var wire 4 , pi [3:0] $end
+$var wire 1 " reset $end
+$var reg 4 - po [3:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 -
+b0 ,
+x+
+b0 *
+0)
+0(
+bx '
+b0 &
+b0 %
+x$
+0#
+1"
+0!
+$end
+#5
+b0 '
+0+
+0$
+1!
+#10
+0!
+0"
+#15
+b0 %
+b0 &
+1!
+#20
+0!
+#25
+b0 &
+b0 %
+1!
+#30
+0!
+1#
+#35
+b1 %
+b1 &
+1!
+#40
+0!
+0#
+#45
+b10 &
+b10 %
+b1 '
+1!
+#50
+0!
+1(
+#55
+b100 %
+b100 &
+b10 '
+1!
+#60
+0!
+#65
+x$
+b1000 &
+b1000 %
+b100 '
+1!
+#70
+0!
+0(
+#75
+0$
+b0 %
+b0 &
+b1000 '
+1!
+#80
+0!
+#85
+b0 &
+b0 %
+b0 '
+1!
+#90
+0!
+#95
+b0 %
+b0 &
+1!
+#100
+0!

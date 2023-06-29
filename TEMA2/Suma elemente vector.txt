@@ -1,0 +1,44 @@
+# $s0 = base address of array, $s1 = i, $s2 = sum
+  lui $s0, 0x1000       # $s0 = 0x10000000
+  ori $s0, $s0, 0xFE8   # $s0 = 0x1000FE80
+
+#intializare elemente vector v[] = {2,4,6,8,1,3,5}
+  li $t1, 2             # $t1 = 2
+  sw $t1, 0($t0)        # v[0] = $t1
+
+  li $t1, 4             # $t1 = 4
+  sw $t1, 4($t0)        # v[1] = $t1
+
+  li $t1, 6             # $t1 = 6
+  sw $t1, 8($t0)        # v[2] = $t1
+
+  li $t1, 8             # $t1 = 8
+  sw $t1, 12($t0)       # v[3] = $t1
+
+  li $t1, 1             # $t1 = 1
+  sw $t1, 16($t0)       # v[4] = $t1
+
+  li $t1, 3             # $t1 = 3
+  sw $t1, 20($t0)       # v[5] = $t1
+
+  li $t1, 5             # $t1 = 5
+  sw $t1, 24($t0)       # v[6] = $t1
+
+#intializare sum = 0; i = 0;
+  addi $s2, $0          # sum = 0
+  addi $s1, $0          # i = 0
+  addi $t0, $0, 7       # $t0 = 7
+
+for:
+  slt  $t2, $s1, $t0    # if (i < 7) $t2 = 1, else $t2 = 0
+  beq  $t2, $0, done    # if $t2 == 0 (i >= 7), branch to done
+
+  lw $t3, ($s0)         # $t3 = v[i]
+  add $s2, $s2, $t3     # sum = sum + v[i]
+
+  addi $s1, $s1, 1      # i = i + 1
+  j for                 #repeat
+
+done:
+  li $v0, 10            # Codul de ieșire (10 = exit)
+  syscall               # Apelez serviciul de sistem pentru a iesi din program

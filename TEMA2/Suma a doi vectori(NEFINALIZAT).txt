@@ -1,0 +1,31 @@
+# $s0 = adresa de baza a primului vector, $s1 = adresa de baza a vectorului2
+# $s2 = adresa de baza a celui de al treilea vector unde va fi stocat rezultatul sumei
+  lui $s0, 0x1000         # $s0 = 0x10000000
+  ori $s0, $s0, 0x7000    # $s0 = 0x10007000
+  lui $s1, 0x1000         # $s1 = 0x10000000
+  ori $s1, $s1, 0x8000    # $s1 = 0x10008000
+  lui $s2, 0x1000         # $s2 = 0x10000000
+  ori $s2, $s2, 0x9000    # $s2 = 0x10009000
+
+  li $t0, 4               # $t0 = 4 lungimea vectorului
+  li $t1, 0               # $t1 = 0 indexul
+
+add_loop:
+  lw $t2, 0($s0)          # $t2 = vector1[index]
+  lw $t3, 0($s1)          # $t3 = vector2[index]
+  add $t4, $t2, $t3       # $t4 = vector1[index] + vector2[index]
+  sw $t4, 0($s2)          # result[index] = $t4
+
+  addi $s0, $s0, 4        # merg la următorul element din primul vector
+  addi $s1, $s1, 4        # merg la următorul element din al doilea vector
+  addi $s2, $s2, 4        # merg la următorul element din vectorul rezultat
+
+  addi $t1, $t1, 1        # index = index + 1
+
+  blt $t1, $t0, add_loop     # branch if less than : compar cei doi registri si sar la label
+                             # Verific daca mai sunt elemente de procesat
+                             # daca da sar la eticheta add_loop
+
+
+  li $v0, 10                 # Codul de ieșire (10 = exit)
+  syscall                    # Apelăm serviciul de sistem pentru a ieși din program

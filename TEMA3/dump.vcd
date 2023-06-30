@@ -1,0 +1,37 @@
+$date
+	Fri Jun 30 09:56:22 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testbench $end
+$var reg 8 ! date [7:0] $end
+$var integer 32 " i [31:0] $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 "
+b10101011 !
+$end
+#20
+b11001101 !
+b1 "
+#40
+b1010 !
+b10 "
+#60
+b1010101 !
+b11 "
+#80
+b1010001 !
+b100 "
+#100
+b10010001 !
+b101 "
+#120
+b110 "
+#200

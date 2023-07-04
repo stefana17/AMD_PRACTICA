@@ -83,7 +83,7 @@ endmodule*/
       $dumpfile("dump.vcd");
       $dumpvars(0, ALUControl_inst);
     end
-endmodule*/
+endmodule
 
 //testare mux 2 intrari, o iesire
 /*module test_Mux2_1;
@@ -207,7 +207,7 @@ endmodule*/
 endmodule*/
 
 //testare Shift_Left
-module test_Sfift_Left;
+/*module test_Sfift_Left;
   reg [31:0] in0t;
   wire [31:0] outt;
   
@@ -232,7 +232,87 @@ module test_Sfift_Left;
       $dumpvars(0, Shift_Left_inst);
     end
   
-endmodule
+endmodule*/
+
+//testare ALUAdd
+/*module test_ALUAdd;
+  reg [31:0] din1t;
+  reg [31:0] din2t;
+  wire [31:0] outt;
   
+  //instantierea
+  ALUAdd ALUAdd_inst(din1t, din2t, outt);
+  
+  //testare
+  initial begin
+    #10 din1t = 32'h10000000; din2t = 32'h1234ABCD;
+    #20 din1t = 32'h11000100; din2t = 32'h56780000;
+    #10 din1t = 32'h12A00000; din2t = 32'hFFFF0000;
+  end
+  
+    initial 
+      begin
+       #120 $finish; // Terminarea simulării după 120 unități de timp
+      end
+  
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, ALUAdd_inst);
+    end
+  
+endmodule*/
+  
+//testare InstructionMemory
+/*module test_InstructionMemory;
+  reg [31:0] addresst;
+  wire [31:0] instructiont;
+  
+  reg [31:0] memt [0:1024];
+  
+  //instantierea
+  InstructionMemory InstructionMemory_inst(addresst, instructiont);
+  
+  //testare
+  initial 
+    begin 
+      // Inițializarea adresei și așteptarea unui ciclu de ceas
+      #0 addresst = 0;
+    
+      // Testarea a 10 adrese consecutive
+      repeat (10) begin
+      #10 addresst = addresst + 4;
+    end
+    
+    // Așteptarea unui ciclu de ceas și încheierea simulării
+    #1;
+    $finish;
+  end
+  
+  /*initial 
+    begin
+      $fopen("cod.txt", "w");
+    end*/
+    
+    // Scrierea conținutului memoriei în fișier
+    /*for (int i = 0; i <= 1024; i = i + 1) begin
+      $fwrite(1, "%h\n", dut.mem[i]);
+    end*/
+  
+ /* initial 
+      begin
+       #120 $finish; // Terminarea simulării după 120 unități de timp
+      end
+  
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, InstructionMemory_inst);
+    end
+endmodule*/
+  
+/*module test_UnitControl;
+  reg [31:26] opcodet;
+  wire RegDst, Jump, Brach, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite;*/
   
   

@@ -6,6 +6,8 @@
 `include "PC.sv"
 `include "PCAdd.sv"
 `include "Shift_Left.sv"
+`include "ALUAdd.sv"
+`include "InstructionMemory.sv"
 
 /*module MIPS(SrcA, ALUOp, instr, di0, di1, sel, zero, ALUResult);
   input [15:0] instr;

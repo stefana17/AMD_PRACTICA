@@ -8,6 +8,8 @@
 `include "Shift_Left.sv"
 `include "ALUAdd.sv"
 `include "InstructionMemory.sv"
+`include "RegisterFile.sv"
+`include "UnitControl.sv"
 
 /*module MIPS(SrcA, ALUOp, instr, di0, di1, sel, zero, ALUResult);
   input [15:0] instr;

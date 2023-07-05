@@ -287,7 +287,7 @@ endmodule*/
     // Așteptarea unui ciclu de ceas și încheierea simulării
     #1;
     $finish;
-  end
+  end*/
   
   /*initial 
     begin
@@ -299,7 +299,7 @@ endmodule*/
       $fwrite(1, "%h\n", dut.mem[i]);
     end*/
   
- /* initial 
+  /*initial 
       begin
        #120 $finish; // Terminarea simulării după 120 unități de timp
       end
@@ -310,9 +310,77 @@ endmodule*/
       $dumpvars(0, InstructionMemory_inst);
     end
 endmodule*/
+
+//testare RegisterFile
+/*module RegisterFile;
+  reg [4:0] readRegister1t, readRegister2t, writeRegistert;
+  reg [31:0] writeDatat;
+  reg clkt;
+  wire [31:0] readData1t, readData2t;
+  wire [31:0] regInt [31:0];
   
+  //instantierea
+  RegisterFile RegisterFile_inst(clkt, readRegister1t, readRegister2t, writeRegistert, writeDatat, readData1t, readData2t);
+  
+  
+  //generarea semnalului de ceas
+  initial
+    begin
+		#0 clkt = 1'b0;
+		forever #5 clkt = ~clkt;
+	end
+
+  //testare
+  initial 
+    begin
+      #10 we = 1'b1;
+      #10 readRegister1 = 5'd8; readRegister2 = 5'd10;
+      #20 writeRegister = 5'd7; writeData = 32'h00000001;
+      #10 writeRegister = 5'd8; writeData = 32'h00000010;
+    end
+  
+    initial 
+      begin
+       #120 $finish; // Terminarea simulării după 120 unități de timp
+      end
+  
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, RegisterFile_inst);
+    end
+  
+endmodule*/
+    
+//testare UnitControl
 /*module test_UnitControl;
   reg [31:26] opcodet;
-  wire RegDst, Jump, Brach, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite;*/
+  wire RegDstt, Jumpt, Brancht, MemReadt, MemtoRegt, MemWritet, ALUSrct, RegWritet;
+  wire [1:0] ALUOpt;
   
+  //instantierea
+  UnitControl UnitControl_inst(opcodet, RegDstt, Jumpt, Brancht, MemReadt, MemtoRegt, ALUOpt, MemWritet, ALUSrct, RegWritet);
   
+  //testare
+  initial begin
+    #0 opcodet = 6'b000000;
+    #10 opcodet = 6'b100011;
+    #10 opcodet = 6'b101011;
+    #10 opcodet = 6'b000100;
+  end
+  
+    initial 
+      begin
+       #120 $finish; // Terminarea simulării după 120 unități de timp
+      end
+  
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, UnitControl_inst);
+    end
+  
+endmodule*/
+
+//testare DataMemory
+

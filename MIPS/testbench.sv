@@ -111,37 +111,6 @@ endmodule
     end
 endmodule*/
 
-//tesatre MIPS
-/*module test_MIPS;
-  reg [15:0] instrt;
-  reg [1:0] ALUOpt;
-  reg [31:0] SrcAt;
-  reg [31:0] di0t, di1t;
-  reg selt;
-  
-  wire [31:0] ALUResultt;
-  wire zerot;
-  
-  //instantierea
-  MIPS MIPS_inst(SrcAt, ALUOpt, instrt, di0t, di1t, selt, zerot, ALUResultt);
-  
-  //testare
-  initial
-    begin
-      #0 instrt = 16'h0020; SrcAt = 32'h4A3212BD; di0t = 32'h11111111; di1t = 32'h22222222; selt = 1'b0; ALUOpt = 2'b1x;
-      #30 instrt = 16'h0024; ALUOpt = 2'b1x;
-      #30 instrt = 16'h002A; ALUOpt = 2'b1x;
-    end
-   initial
-    #120 $finish;
-  initial
-    begin
-      $dumpfile("dump.vcd");
-      $dumpvars(0, MIPS_inst);
-    end
-endmodule*/
-
-
 //testare PC
 /*module test_PC;
   reg [31:0] PCt;
@@ -312,15 +281,15 @@ endmodule*/
 endmodule*/
 
 //testare RegisterFile
-/*module RegisterFile;
+/*module test_RegisterFile;
   reg [4:0] readRegister1t, readRegister2t, writeRegistert;
   reg [31:0] writeDatat;
-  reg clkt;
+  reg clkt, wet;
   wire [31:0] readData1t, readData2t;
   wire [31:0] regInt [31:0];
   
   //instantierea
-  RegisterFile RegisterFile_inst(clkt, readRegister1t, readRegister2t, writeRegistert, writeDatat, readData1t, readData2t);
+  RegisterFile RegisterFile_inst(clkt, wet, readRegister1t, readRegister2t, writeRegistert, writeDatat, readData1t, readData2t);
   
   
   //generarea semnalului de ceas
@@ -333,10 +302,10 @@ endmodule*/
   //testare
   initial 
     begin
-      #10 we = 1'b1;
-      #10 readRegister1 = 5'd8; readRegister2 = 5'd10;
-      #20 writeRegister = 5'd7; writeData = 32'h00000001;
-      #10 writeRegister = 5'd8; writeData = 32'h00000010;
+      #0 wet = 1'b1;
+      #10 readRegister1t = 5'd8; readRegister2t = 5'd10;
+      #20 writeRegistert = 5'd7; writeDatat = 32'h00000001;
+      #10 writeRegistert = 5'd8; writeDatat = 32'h00000010;
     end
   
     initial 
@@ -383,4 +352,160 @@ endmodule*/
 endmodule*/
 
 //testare DataMemory
+/*module test_DataMemory;
+  reg clkt, wet;
+  reg [31:0] addresst, writeDatat;
+  wire [31:0] readDatat;
+  
+  
+  //instantierea
+  DataMemory DataMemory_inst(clkt, wet, addresst, writeDatat, readDatat);
+  
+  //generarea semnalului de ceas
+  initial
+    begin
+		#0 clkt = 1'b0;
+		forever #5 clkt = ~clkt;
+	end
+    
+  //testare
+  initial 
+    begin
+      // Initializarea valorilor de intrare
+    #0 wet = 1'b0; addresst = 32'b0; writeDatat = 32'b0;
+    
+    // Scrierea datelor în memorie
+    #10 wet = 1'b1; addresst = 32'h4; writeDatat = 32'h12345678;
+    #10 wet = 1'b1; addresst = 32'h8; writeDatat = 32'h9ABCDEF0;
+    
+    // Citirea datelor din memorie
+    #10 wet = 1'b0; addresst = 32'h4;
+      
+      $display("Read Data at address %d: %h", addresst, readDatat);
+    
+    #10 addresst = 32'h8;
+      $display("Read Data at address %d: %h", addresst, readDatat);
+    
+    end
+  
+    initial 
+      begin
+       #120 $finish; // Terminarea simulării după 120 unități de timp
+      end
+  
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, DataMemory_inst);
+    end
+  
+endmodule*/
 
+//tesatre MIPS SignExtend + AluControl + MUX + ALU
+/*module test_MIPS;
+  reg [15:0] instrt;
+  reg [1:0] ALUOpt;
+  reg [31:0] SrcAt;
+  reg [31:0] di0t, di1t;
+  reg selt;
+  
+  wire [31:0] ALUResultt;
+  wire zerot;
+  
+  //instantierea
+  MIPS MIPS_inst(SrcAt, ALUOpt, instrt, di0t, di1t, selt, zerot, ALUResultt);
+  
+  //testare
+  initial
+    begin
+      #0 instrt = 16'h0020; SrcAt = 32'h4A3212BD; di0t = 32'h11111111; di1t = 32'h22222222; selt = 1'b0; ALUOpt = 2'b1x;
+      #30 instrt = 16'h0024; ALUOpt = 2'b1x;
+      #30 instrt = 16'h002A; ALUOpt = 2'b1x;
+    end
+   initial
+    #120 $finish;
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, MIPS_inst);
+    end
+endmodule*/
+
+//testare MIPS PC + InstructionMemory + UnitControl + RegisterFile
+/*module test_MIPS;
+  reg clkt;
+  reg [31:0] PCt, writeDatat;
+  
+  wire [31:0] readData1t, readData2t;
+  wire Jumpt, Brancht, MemReadt, MemtoRegt, MemWritet, ALUSrct, RegWritet;
+  wire [1:0] ALUOpt;
+  
+  integer i;
+  
+  //instantierea
+  MIPS MIPS_inst(clkt, PCt, Jumpt, Brancht, MemReadt, MemtoRegt, MemWritet, ALUSrct, ALUOpt, writeDatat, readData1t, readData2t);
+  
+  //generarea semnalului de ceas
+  initial
+    begin
+		#0 clkt = 1'b0;
+		forever #5 clkt = ~clkt;
+	end
+  
+  //testare
+  initial
+    begin
+      for(i = 0; i <= 32; i = i+1)
+        $dumpvars(0, InstructionMemory InstructionMemory_inst.mem[i]);
+    end
+  
+  initial
+    begin
+      #0  PCt = 32'h10000000; writeDatat = 32'h00000001;
+      #10 PCt = 32'h11000100; writeDatat = 32'h00000010;
+      //#10 selt = 1'b1;
+    end
+  
+   initial
+    #120 $finish;
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, MIPS_inst);
+    end
+  
+endmodule*/
+
+module test_MIPS;
+  reg clkt, startt;
+  integer i;
+  //instantierea
+  MIPS MIPS_inst(clkt, startt);
+  
+  //generarea semnalului de ceas
+  initial
+    begin
+		#0 clkt = 1'b0;
+		forever #5 clkt = ~clkt;
+	end
+  
+  //testare
+  initial 
+    begin
+      #0 startt = 1'b1;
+      #10 startt = 1'b0;
+    end
+  
+  initial
+    #220 $finish;
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(0, MIPS_inst);
+      for(i = 0; i < 32; i = i + 1)
+        $dumpvars(0, MIPS_inst.RegisterFile_inst.regIn[i]);
+      for(i = 0; i < 32; i = i + 1)
+        $dumpvars(0, MIPS_inst.DataMemory_inst.RAM[i]);
+    end
+  
+endmodule

@@ -16,3 +16,4 @@ module ALU(SrcA, SrcB, ALUControl, zero, ALUResult);
         default: ALUResult = 0;
       endcase
 endmodule
+

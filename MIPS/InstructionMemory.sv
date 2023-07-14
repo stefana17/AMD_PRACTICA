@@ -1,8 +1,8 @@
 module InstructionMemory(address, instruction);
-  input [31:0] address; //adresa de input
-  output [31:0] instruction; //instructiunea la adresa din memoria locala
+  input [31:0] address; //adresa de acces in memorie
+  output [31:0] instruction; //instructiunea citita la adresa specificata 
   
-  reg [31:0] mem [0:1024];
+  reg [31:0] mem [0:31];
   
   initial 
     begin
@@ -13,3 +13,4 @@ module InstructionMemory(address, instruction);
 	
 
 endmodule
+
